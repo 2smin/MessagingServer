@@ -1,5 +1,6 @@
 package Boostraps;
 
+import Node.ChatRoomHandler;
 import io.netty.bootstrap.ServerBootstrap;
 
 import java.util.HashMap;
@@ -17,5 +18,17 @@ public class ChatRoomServerContainer {
         return ChatRoomServerContainerHolder.INSTANCE;
     }
 
-    private Map<String, ServerBootstrap> chatRoomServerMap = new HashMap<>();
+    private Map<String, ChatRoom> chatRoomServerMap = new HashMap<>();
+
+    public void add(String chatRoomName, ChatRoom chatRoom){
+        chatRoomServerMap.put(chatRoomName, chatRoom);
+    }
+
+    public void remove(String chatRoomName){
+        chatRoomServerMap.remove(chatRoomName);
+    }
+
+    public ChatRoom get(String chatRoomName){
+        return chatRoomServerMap.get(chatRoomName);
+    }
 }
