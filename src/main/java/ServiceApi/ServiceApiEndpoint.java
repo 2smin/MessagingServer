@@ -1,4 +1,4 @@
-package Node;
+package ServiceApi;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -9,7 +9,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 
-public class ServerEndpoint {
+public class ServiceApiEndpoint {
 
 
     //외부 사용자들을 위한 서버 엔드포인트
@@ -25,7 +25,7 @@ public class ServerEndpoint {
                 ChannelPipeline pipeLine = ch.pipeline();
                 pipeLine.addLast(new HttpServerCodec());
                 pipeLine.addLast(new HttpObjectAggregator(512*1024));
-                pipeLine.addLast(new ChatRoomHandler());
+                pipeLine.addLast(new ServiceApiHandler());
             }
         });
         serverBootstrap.bind(33335);
