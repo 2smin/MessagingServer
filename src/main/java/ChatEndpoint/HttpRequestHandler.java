@@ -13,23 +13,8 @@ import java.net.URL;
 
 public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
 
-    private final String wsUri;
-    private static final File INDEX;
 
-    static{
-        //handler가 위치한 곳에서 index.html을 찾기 위해 경로를 설정
-        URL location = HttpRequestHandler.class.getProtectionDomain().getCodeSource().getLocation();
-        try {
-            String path = location.toURI() + "Websocket/index.html";
-            path = !path.contains("file:") ? path : path.substring(5);
-            INDEX = new File(path);
-        }catch (Exception e){
-            throw new IllegalStateException("unable to locate index.html",e);
-        }
-    }
-
-    public HttpRequestHandler(String wsUri){
-        this.wsUri = wsUri;
+    public HttpRequestHandler(){
     }
 
     @Override
@@ -42,6 +27,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             if (headers.get(HttpHeaderNames.CONNECTION).equalsIgnoreCase(HttpHeaderValues.UPGRADE.toString()) &&
                     headers.get(HttpHeaderNames.UPGRADE).equalsIgnoreCase(HttpHeaderValues.WEBSOCKET.toString())) {
                 ctx.pipeline().replace(this, "TextWebScoketFrameHandler", new TextWebSocketFrameHandler());
+                ctx.pipeline().addLast(new ChatProtocolHandler());
             }
         }
 

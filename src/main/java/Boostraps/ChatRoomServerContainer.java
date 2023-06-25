@@ -2,6 +2,7 @@ package Boostraps;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ChatRoomServerContainer {
 
@@ -26,6 +27,8 @@ public class ChatRoomServerContainer {
     }
 
     public ChatRoom get(String chatRoomName){
-        return chatRoomServerMap.get(chatRoomName);
+        if(chatRoomServerMap.get(chatRoomName) == null)
+            throw new IllegalArgumentException("There is no chatRoom named " + chatRoomName);
+        return Objects.requireNonNull(chatRoomServerMap.get(chatRoomName));
     }
 }

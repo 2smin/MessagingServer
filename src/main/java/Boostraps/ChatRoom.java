@@ -1,5 +1,6 @@
 package Boostraps;
 
+import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 
@@ -12,7 +13,13 @@ public class ChatRoom {
     public Set<String> users = new HashSet<>();
     public ChannelGroup channelGroup = new DefaultChannelGroup(name, null);
 
+
     protected ChatRoom(String name){
         this.name = name;
+    }
+
+    public void joinChatRoom(String userName, Channel clientChannel){
+        users.add(userName);
+        channelGroup.add(clientChannel);
     }
 }
