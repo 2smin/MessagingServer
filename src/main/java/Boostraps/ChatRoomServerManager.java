@@ -1,8 +1,8 @@
 package Boostraps;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
 
-import java.nio.channels.Channel;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,5 +1,6 @@
 package ChatEndpoint;
 
+import Boostraps.ChatRoomServerContainer;
 import Protocols.ChatProtocol;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -12,8 +13,18 @@ public class ChatProtocolHandler extends SimpleChannelInboundHandler<ChatProtoco
         String chatRoom = msg.getChattingRoomName();
         String userName = msg.getUserName();
         String message = msg.getMessage();
-        String action = msg.getAction().toString();
 
-        //TODO: paramter로 받은 정보를 가지고, 채팅방에 메세지를 전송한다.
+        System.out.println("message: " + message);
+
+        //FIXME : send message to all channelGroup users
+        ChatRoomServerContainer.getInstance().get(chatRoom).channelGroup.writeAndFlush(
+                "[" + userName + "] : " + message + "\n"
+        );
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        System.out.println("exception caught");
+        cause.printStackTrace();
     }
 }
