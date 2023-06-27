@@ -1,6 +1,7 @@
 package Boostraps;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.Channel;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +23,19 @@ public class ChatRoomServerManager {
     public void addChatRoom(String name){
         ChatRoom chatRoom = new ChatRoom(name);
         ChatRoomServerContainer.getInstance().add(name, chatRoom);
+
+    }
+
+    public void joinChatRoom(String chatRoomName, Channel clientChannel){
+        ChatRoom chatRoom;
+        try{
+            chatRoom = ChatRoomServerContainer.getInstance().get(chatRoomName);
+        }catch (IllegalArgumentException e){
+            //생성 여부 질문하기
+            System.out.println(e.getMessage());
+            return;
+        }
+
     }
 
 
