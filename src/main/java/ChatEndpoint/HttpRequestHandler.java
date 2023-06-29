@@ -3,6 +3,7 @@ package ChatEndpoint;
 import Boostraps.ChatRoomServerManager;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.websocketx.WebSocketFrameDecoder;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import io.netty.handler.ssl.SslHandler;
@@ -34,7 +35,7 @@ public class HttpRequestHandler extends ChannelInboundHandlerAdapter {
             } else if (request.uri().equalsIgnoreCase("/joinRoom")) {
                 //join한 후 바로 chat을 시작할수 있도록 해야한다. 그럼 websocket upgrade request가 joinRoom에 대한 정보를 담고 있어야함.
                 ChatRoomServerManager chatManager = ChatRoomServerManager.getInstance();
-                chatManager.joinChatRoom("test", ctx.channel());
+                chatManager.joinChatRoom("test",ctx.channel().id().toString(), ctx.channel());
                 System.out.println("user :" + ctx.channel().id() + " join chatroom");
             }
 
@@ -43,6 +44,7 @@ public class HttpRequestHandler extends ChannelInboundHandlerAdapter {
                         headers.get(HttpHeaderNames.UPGRADE).equalsIgnoreCase(HttpHeaderValues.WEBSOCKET.toString())) {
                     ctx.pipeline().replace(this, "TextWebScoketFrameHandler", new TextWebSocketFrameHandler());
                     ctx.pipeline().addLast(new ChatProtocolHandler());
+
                 }
             }
 

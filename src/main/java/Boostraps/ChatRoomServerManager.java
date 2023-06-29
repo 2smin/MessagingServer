@@ -26,16 +26,22 @@ public class ChatRoomServerManager {
 
     }
 
-    public void joinChatRoom(String chatRoomName, Channel clientChannel){
+    public void joinChatRoom(String chatRoomName, String userName, Channel clientChannel){
         ChatRoom chatRoom;
         try{
             chatRoom = ChatRoomServerContainer.getInstance().get(chatRoomName);
+            chatRoom.joinChatRoom(userName, clientChannel);
         }catch (IllegalArgumentException e){
             //생성 여부 질문하기
             System.out.println(e.getMessage());
             return;
         }
 
+    }
+
+    public ChatRoom getChatRoom(String test){
+        ChatRoom chatRoom = ChatRoomServerContainer.getInstance().get("test");
+        return chatRoom;
     }
 
 

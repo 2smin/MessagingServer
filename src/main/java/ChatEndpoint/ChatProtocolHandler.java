@@ -4,6 +4,8 @@ import Boostraps.ChatRoomServerContainer;
 import Protocols.ChatProtocol;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import io.netty.util.CharsetUtil;
 
 public class ChatProtocolHandler extends SimpleChannelInboundHandler<ChatProtocol> {
 
@@ -17,8 +19,11 @@ public class ChatProtocolHandler extends SimpleChannelInboundHandler<ChatProtoco
         System.out.println("message: " + message);
 
         //FIXME : send message to all channelGroup users
-        ChatRoomServerContainer.getInstance().get(chatRoom).channelGroup.writeAndFlush(
-                "[" + userName + "] : " + message + "\n"
+        //TextWebSocketFrame 에 넣어서 보내야한다.
+        TextWebSocketFrame textWebSocketFrame = new TextWebSocketFrame();
+        textWebSocketFrame.content().writeBytes(message.getBytes(CharsetUtil.UTF_8));
+        ChatRoomServerContainer.getInstance().get("test").channelGroup.writeAndFlush(
+                textWebSocketFrame
         );
     }
 
