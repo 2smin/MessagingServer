@@ -1,17 +1,10 @@
 package ChatEndpoint;
 
-import Boostraps.ChatRoomServerManager;
+import ChatManager.ChatRoomServerManager;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
-import io.netty.handler.codec.http.websocketx.WebSocketFrameDecoder;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
-import io.netty.handler.ssl.SslHandler;
-import io.netty.handler.stream.ChunkedNioFile;
-
-import java.io.File;
-import java.io.RandomAccessFile;
-import java.net.URL;
 
 public class HttpRequestHandler extends ChannelInboundHandlerAdapter {
 

@@ -1,18 +1,18 @@
-package Boostraps;
+package ChatManager;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class ChatRoomServerContainer {
+public class ChatRoomContainer {
 
-    private ChatRoomServerContainer(){}
+    private ChatRoomContainer(){}
 
     private static class ChatRoomServerContainerHolder{
-        private static final ChatRoomServerContainer INSTANCE = new ChatRoomServerContainer();
+        private static final ChatRoomContainer INSTANCE = new ChatRoomContainer();
     }
 
-    public static ChatRoomServerContainer getInstance(){
+    public static ChatRoomContainer getInstance(){
         return ChatRoomServerContainerHolder.INSTANCE;
     }
 
@@ -22,13 +22,12 @@ public class ChatRoomServerContainer {
         chatRoomServerMap.put(chatRoomName, chatRoom);
     }
 
-    public void remove(String chatRoomName){
+    public void remove(String chatRoomName) throws NullPointerException{
+        get(chatRoomName);
         chatRoomServerMap.remove(chatRoomName);
     }
 
     public ChatRoom get(String chatRoomName){
-        if(chatRoomServerMap.get(chatRoomName) == null)
-            throw new IllegalArgumentException("There is no chatRoom named " + chatRoomName);
         return Objects.requireNonNull(chatRoomServerMap.get(chatRoomName));
     }
 }

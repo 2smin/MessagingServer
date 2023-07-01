@@ -10,11 +10,5 @@ public class ServiceApiHandler extends SimpleChannelInboundHandler<HttpObject> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, HttpObject msg) throws Exception {
         HttpRequest request = (HttpRequest) msg;
-
-        System.out.println("ChatRoomHandler received message");
-
-        if(request.uri().equals("/create")){
-
-        }
     }
 }

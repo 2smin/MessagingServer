@@ -8,5 +8,7 @@ public class MessagingServer {
         runServerEndpoint();
         ChattingEndpoint chattingEndpoint = new ChattingEndpoint();
         chattingEndpoint.runChattingServer(33336);
+
+
     }
 }

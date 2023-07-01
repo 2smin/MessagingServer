@@ -1,6 +1,6 @@
 package ChatEndpoint;
 
-import Boostraps.ChatRoomServerContainer;
+import ChatManager.ChatRoomContainer;
 import Protocols.ChatProtocol;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -22,7 +22,7 @@ public class ChatProtocolHandler extends SimpleChannelInboundHandler<ChatProtoco
         //TextWebSocketFrame 에 넣어서 보내야한다.
         TextWebSocketFrame textWebSocketFrame = new TextWebSocketFrame();
         textWebSocketFrame.content().writeBytes(message.getBytes(CharsetUtil.UTF_8));
-        ChatRoomServerContainer.getInstance().get("test").channelGroup.writeAndFlush(
+        ChatRoomContainer.getInstance().get("test").channelGroup.writeAndFlush(
                 textWebSocketFrame
         );
     }

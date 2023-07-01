@@ -1,7 +1,6 @@
-package Boostraps;
+package ChatManager;
 
 import io.netty.channel.Channel;
-import io.netty.channel.DefaultEventLoop;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;

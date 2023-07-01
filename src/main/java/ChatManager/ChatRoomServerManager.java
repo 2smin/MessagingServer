@@ -1,13 +1,14 @@
-package Boostraps;
+package ChatManager;
 
-import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
-
-import java.util.HashMap;
-import java.util.Map;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
 
 public class ChatRoomServerManager {
-    private ChatRoomServerManager(){}
+    private ChatRoomServerManager(){
+        this.eventExecutors = new NioEventLoopGroup(10);
+    }
+    private EventLoopGroup eventExecutors;
 
     //모든 Thread에서 공통으로 사용할 chatRoomServerManager
     private static class ChatRoomServerHolder{
@@ -22,14 +23,18 @@ public class ChatRoomServerManager {
     //우선 ServerBootStrap을 뚫어서 node를 구분해야한다
     public void addChatRoom(String name){
         ChatRoom chatRoom = new ChatRoom(name);
-        ChatRoomServerContainer.getInstance().add(name, chatRoom);
+        ChatRoomContainer.getInstance().add(name, chatRoom);
 
+    }
+
+    public void removeChatRoom(String name) throws NullPointerException{
+        ChatRoomContainer.getInstance().remove(name);
     }
 
     public void joinChatRoom(String chatRoomName, String userName, Channel clientChannel){
         ChatRoom chatRoom;
         try{
-            chatRoom = ChatRoomServerContainer.getInstance().get(chatRoomName);
+            chatRoom = ChatRoomContainer.getInstance().get(chatRoomName);
             chatRoom.joinChatRoom(userName, clientChannel);
         }catch (IllegalArgumentException e){
             //생성 여부 질문하기
@@ -40,7 +45,7 @@ public class ChatRoomServerManager {
     }
 
     public ChatRoom getChatRoom(String test){
-        ChatRoom chatRoom = ChatRoomServerContainer.getInstance().get("test");
+        ChatRoom chatRoom = ChatRoomContainer.getInstance().get("test");
         return chatRoom;
     }
 
