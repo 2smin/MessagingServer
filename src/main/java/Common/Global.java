@@ -1,3 +1,9 @@
+package Common;
+
+import Enums.MessagingServerConst;
+import io.netty.channel.local.LocalAddress;
+import io.netty.channel.local.LocalChannel;
+
 public class Global {
 
     private Global(){}
@@ -11,4 +17,6 @@ public class Global {
     }
 
 
+    public static void init(){
+    }
 }
