@@ -20,7 +20,8 @@ public class HttpRequestHandler extends ChannelInboundHandlerAdapter {
             System.out.println("[" + Thread.currentThread().getName() + "] : incoming http request");
             HttpHeaders headers = request.headers();
 
-            //chatroom에 대한 create join, delete를 진행
+            //TODO : remove all http params... use chatProtocol in this endpoint
+            //chatroom에 대한 create join, delete를 진행. 이건 service api로 뺴기
             if (request.uri().equalsIgnoreCase("/createRoom")) {
                 ChatRoomServerManager chatManager = ChatRoomServerManager.getInstance();
                 chatManager.addChatRoom("test");

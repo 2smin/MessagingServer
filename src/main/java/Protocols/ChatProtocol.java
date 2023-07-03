@@ -14,6 +14,9 @@ public class ChatProtocol {
         this.message = message;
     }
 
+    public ChatProtocol() {
+    }
+
     @Override
     public String toString() {
         return "[ChatRoom] : " + chattingRoomName + " \n" +
@@ -37,20 +40,11 @@ public class ChatProtocol {
         return action;
     }
 
-    public void setAction(String action){
-        switch (action) {
-            case "ENTER":
-                this.action = Action.ENTER;
-                break;
-            case "EXIT":
-                this.action = Action.EXIT;
-                break;
-            default:
-                throw new IllegalArgumentException("Action must be ENTER or EXIT");
-        }
+    public void setAction(Action action){
+        this.action = action;
     }
 
     public enum Action {
-        	ENTER, EXIT
+        	ENTER, EXIT, CREATE, UPDATE, DELETE
     }
 }

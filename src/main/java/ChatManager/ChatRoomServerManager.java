@@ -4,6 +4,8 @@ import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 
+import java.util.UUID;
+
 public class ChatRoomServerManager {
     private ChatRoomServerManager(){
         this.eventExecutors = new NioEventLoopGroup(10);
@@ -21,10 +23,15 @@ public class ChatRoomServerManager {
 
     //chatRoom 마다 포트를 가질수 없다. 포트는 한정, chatRoom을 라우팅하자.
     //우선 ServerBootStrap을 뚫어서 node를 구분해야한다
-    public void addChatRoom(String name){
+    public String addChatRoom(String name){
+        if(name == null || "".equals(name)){
+            name = UUID.randomUUID().toString().substring(0,7);
+        }
         ChatRoom chatRoom = new ChatRoom(name);
         ChatRoomContainer.getInstance().add(name, chatRoom);
 
+        System.out.println("chatting room [" + name + "] has been created ");
+        return name;
     }
 
     public void removeChatRoom(String name) throws NullPointerException{
