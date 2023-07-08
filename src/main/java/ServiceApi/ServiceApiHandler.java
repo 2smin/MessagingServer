@@ -41,6 +41,8 @@ public class ServiceApiHandler extends SimpleChannelInboundHandler<HttpObject> {
             chatManagerChannel.writeAndFlush(chatProtocol);
         }
 
+        //chatcontainer에서 특정 이름의 방 찾아서 참여하고 있는 모든 channel 출력
+
 
     }
 }

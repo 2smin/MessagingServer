@@ -8,10 +8,11 @@ public class ChatProtocol {
     private Action action;
 
 
-    public ChatProtocol(String chattingRoomName, String userName, String message) {
+    public ChatProtocol(String chattingRoomName, String userName, String message, String action) {
         this.chattingRoomName = chattingRoomName;
         this.userName = userName;
         this.message = message;
+        this.action = Action.valueOf(action);
     }
 
     public ChatProtocol() {
@@ -45,6 +46,12 @@ public class ChatProtocol {
     }
 
     public enum Action {
-        	ENTER, EXIT, CREATE, UPDATE, DELETE
+        	JOIN ("join"), EXIT("exit"), CREATE("create"), UPDATE("update"), DELETE("delete"),
+        MESSAGE("message");
+
+        String action;
+
+        Action(String enter) {
+        }
     }
 }

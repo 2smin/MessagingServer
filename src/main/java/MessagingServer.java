@@ -1,5 +1,6 @@
 import ChatEndpoint.ChattingEndpoint;
 import ChatManager.RoomManager;
+import Common.ChatLogger;
 import Common.Global;
 import ServiceApi.ServiceApiEndpoint;
 

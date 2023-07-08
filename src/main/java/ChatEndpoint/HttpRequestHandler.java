@@ -1,13 +1,16 @@
 package ChatEndpoint;
 
 import ChatManager.ChatRoomServerManager;
+import Common.ChatLogger;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
+import org.slf4j.Logger;
 
 public class HttpRequestHandler extends ChannelInboundHandlerAdapter {
 
+    private Logger chatLogger = ChatLogger.holder.INSTANCE.getLogger(this.getClass().getSimpleName());
 
     public HttpRequestHandler(){
     }
@@ -22,16 +25,6 @@ public class HttpRequestHandler extends ChannelInboundHandlerAdapter {
 
             //TODO : remove all http params... use chatProtocol in this endpoint
             //chatroom에 대한 create join, delete를 진행. 이건 service api로 뺴기
-            if (request.uri().equalsIgnoreCase("/createRoom")) {
-                ChatRoomServerManager chatManager = ChatRoomServerManager.getInstance();
-                chatManager.addChatRoom("test");
-                System.out.println("user :" + ctx.channel().id() + " create chatroom");
-            } else if (request.uri().equalsIgnoreCase("/joinRoom")) {
-                //join한 후 바로 chat을 시작할수 있도록 해야한다. 그럼 websocket upgrade request가 joinRoom에 대한 정보를 담고 있어야함.
-                ChatRoomServerManager chatManager = ChatRoomServerManager.getInstance();
-                chatManager.joinChatRoom("test",ctx.channel().id().toString(), ctx.channel());
-                System.out.println("user :" + ctx.channel().id() + " join chatroom");
-            }
 
             if (headers.contains(HttpHeaderNames.CONNECTION) && headers.contains(HttpHeaderNames.UPGRADE)) {
                 if (headers.get(HttpHeaderNames.CONNECTION).equalsIgnoreCase(HttpHeaderValues.UPGRADE.toString()) &&
@@ -43,7 +36,7 @@ public class HttpRequestHandler extends ChannelInboundHandlerAdapter {
             }
 
             String websocketUri = "ws://" + request.headers().get(HttpHeaderNames.HOST) + request.uri();
-            System.out.println("websocket connect request from : " + websocketUri);
+            chatLogger.info("websocket connect request from : " + websocketUri);
             WebSocketServerHandshakerFactory wsFactory = new WebSocketServerHandshakerFactory(
                     websocketUri, null, false);
 
