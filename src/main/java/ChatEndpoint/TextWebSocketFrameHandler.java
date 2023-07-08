@@ -32,7 +32,8 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
         ChatProtocol chatProtocol = new ChatProtocol(
                 jsonObject.get("chattingRoomName").getAsString(),
                 jsonObject.get("userName").getAsString(),
-                jsonObject.get("message").getAsString()
+                jsonObject.get("message").getAsString(),
+                jsonObject.get("action").getAsString()
         );
 
 

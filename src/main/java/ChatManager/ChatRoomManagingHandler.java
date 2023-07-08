@@ -15,7 +15,7 @@ public class ChatRoomManagingHandler extends ChannelInboundHandlerAdapter {
 
             switch (action) {
                 case "CREATE":
-                    ChatRoomServerManager.getInstance().addChatRoom(chatProtocol.getChattingRoomName());
+                    String roomName = ChatRoomServerManager.getInstance().addChatRoom(chatProtocol.getChattingRoomName());
                     //TODO : send join signal with assigned websocket port
                     break;
                 case "DELETE":
@@ -26,7 +26,7 @@ public class ChatRoomManagingHandler extends ChannelInboundHandlerAdapter {
 
                     break;
                 default:
-                    throw new IllegalArgumentException("Action must be ENTER or EXIT");
+                    System.out.println("unhandled action received");
             }
         }
     }

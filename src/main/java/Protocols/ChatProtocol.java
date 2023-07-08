@@ -8,10 +8,14 @@ public class ChatProtocol {
     private Action action;
 
 
-    public ChatProtocol(String chattingRoomName, String userName, String message) {
+    public ChatProtocol(String chattingRoomName, String userName, String message, String action) {
         this.chattingRoomName = chattingRoomName;
         this.userName = userName;
         this.message = message;
+        this.action = Action.valueOf(action);
+    }
+
+    public ChatProtocol() {
     }
 
     @Override
@@ -37,20 +41,17 @@ public class ChatProtocol {
         return action;
     }
 
-    public void setAction(String action){
-        switch (action) {
-            case "ENTER":
-                this.action = Action.ENTER;
-                break;
-            case "EXIT":
-                this.action = Action.EXIT;
-                break;
-            default:
-                throw new IllegalArgumentException("Action must be ENTER or EXIT");
-        }
+    public void setAction(Action action){
+        this.action = action;
     }
 
     public enum Action {
-        	ENTER, EXIT
+        	JOIN ("join"), EXIT("exit"), CREATE("create"), UPDATE("update"), DELETE("delete"),
+        MESSAGE("message");
+
+        String action;
+
+        Action(String enter) {
+        }
     }
 }
