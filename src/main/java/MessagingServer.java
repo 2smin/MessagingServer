@@ -3,17 +3,20 @@ import ChatManager.RoomManager;
 import Common.ChatLogger;
 import Common.Global;
 import ServiceApi.ServiceApiEndpoint;
+import org.slf4j.Logger;
 
 import static ServiceApi.ServiceApiEndpoint.runServerEndpoint;
 
 public class MessagingServer {
 
-    public static void main(String[] args) {
+    private static Logger logger = ChatLogger.holder.INSTANCE.getLogger(MessagingServer.class.getSimpleName());
 
+    public static void main(String[] args) {
         //chat endpoint에게 roomManager localchannel binding 하기
         ChattingEndpoint chattingEndpoint = new ChattingEndpoint();
         chattingEndpoint.runChattingServer(33336);
 
+        logger.info("booting......");
         try{
             //start room Manager server ep
             RoomManager.start();
@@ -25,6 +28,6 @@ public class MessagingServer {
             System.out.println("booting failed.");
         }
 
-
+        logger.info("booting success.");
     }
 }

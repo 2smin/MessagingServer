@@ -28,6 +28,6 @@ public class ChatRoomContainer {
     }
 
     public ChatRoom get(String chatRoomName){
-        return Objects.requireNonNull(chatRoomServerMap.get(chatRoomName));
+        return Objects.requireNonNull(chatRoomServerMap.get(chatRoomName), "There is no chatRoom named " + chatRoomName);
     }
 }
